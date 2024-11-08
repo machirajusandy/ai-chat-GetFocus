@@ -1,0 +1,10 @@
+.container {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 24px;
+  width: 400px;
+  margin-left: auto;
+  margin-bottom: 18px;
+  white-space: pre-line;
+  background-color: #e0e0e0;
+}
