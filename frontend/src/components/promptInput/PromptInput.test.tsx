@@ -10,12 +10,14 @@ describe('PromptInput', () => {
   })
 
   it('should submit the message', async () => {
+    const user = userEvent.setup()
     const handleSubmit = vi.fn()
     render(<PromptInput handleSubmit={handleSubmit} />)
     const input = screen.getByLabelText('prompt')
     const message = 'Hello World'
-    await userEvent.type(input, message)
-    await userEvent.click(screen.getByLabelText(/submit/i))
+    await user.type(input, message)
+    await user.click(screen.getByLabelText(/submit/i))
+
     expect(handleSubmit).toHaveBeenCalledWith(message)
   })
 
@@ -29,6 +31,6 @@ describe('PromptInput', () => {
       />
     )
     await userEvent.click(screen.getByLabelText(/cancel/i))
-    expect(cancelPrompt).toHaveBeenCalled()
+    expect(cancelPrompt).toHaveBeenCalledOnce()
   })
 })

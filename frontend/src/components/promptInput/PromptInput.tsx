@@ -25,7 +25,13 @@ const PromptInput = ({
       e.preventDefault()
       handleClickSubmit()
     } else {
-      setPrompt(prompt + e.key)
+      setTimeout(
+        () =>
+          setPrompt(
+            inputRef.current?.innerText || inputRef.current?.textContent || ''
+          ),
+        0
+      )
     }
   }
 
@@ -48,7 +54,6 @@ const PromptInput = ({
         data-placeholder="Type your message..."
         contentEditable
         onKeyDown={handleKeyDown}
-        // onKeyUp={handleKeyUp}
         aria-label="prompt"
       ></div>
       {isFetching ? (
