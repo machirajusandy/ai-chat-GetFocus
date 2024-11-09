@@ -2,6 +2,8 @@ const express = require('express')
 const axios = require('axios')
 const cors = require('cors')
 
+const PORT = 4005
+
 const app = express()
 app.use(cors())
 
@@ -50,4 +52,4 @@ app.get('/stream', async (req, res) => {
   }
 })
 
-app.listen(4005, () => console.log('Server running on port 3000'))
+app.listen(PORT, () => console.log('Server running on port ' + PORT))
