@@ -9,6 +9,7 @@ import wipeIcon from './assets/broom.png'
 function App() {
   const { conversation, setConversation, clearConversation } = useConversation()
   const [isFetching, setIsFetching] = useState(false)
+  const [error, setError] = useState(false)
 
   const cancelPrompt = useRef<() => void>()
 
@@ -39,10 +40,12 @@ function App() {
     })
     setConversation(updatedConversation)
     setIsFetching(true)
+    setError(false)
     const { cancelEvent } = services.readEvent({
       prompt,
       onGetData: updateConversation,
-      onEnd: () => setIsFetching(false)
+      onEnd: () => setIsFetching(false),
+      onError: () => setError(true)
     })
     cancelPrompt.current = cancelEvent
   }
@@ -59,6 +62,11 @@ function App() {
         </button>
       </div>
       <ConversationList conversation={conversation} />
+      {error && (
+        <div className={styles.errorContainer}>
+          <p>There was an error processing your request</p>
+        </div>
+      )}
       <div className={styles.promptContainer}>
         <PromptInput
           handleSubmit={handleSubmit}

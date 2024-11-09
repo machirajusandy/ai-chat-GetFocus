@@ -3,11 +3,13 @@ const url = import.meta.env.VITE_READ_EVENT_URL as string
 export function readEvent({
   prompt,
   onGetData,
-  onEnd
+  onEnd,
+  onError
 }: {
   prompt: string
   onGetData: (data: string) => void
   onEnd: () => void
+  onError: (error: string) => void
 }) {
   const eventSource = new EventSource(`${url}?prompt=${prompt}`)
 
@@ -42,6 +44,7 @@ export function readEvent({
 
   eventSource.onerror = (error) => {
     console.error('EventSource error:', error)
+    onError('An error occurred')
     onEnd()
     eventSource.close()
   }

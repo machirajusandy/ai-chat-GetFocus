@@ -54,3 +54,10 @@
   min-width: 300px;
   max-width: 900px;
 }
+
+.errorContainer {
+  background-color: #ffcccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
