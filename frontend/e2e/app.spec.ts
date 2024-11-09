@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-const url = 'http://localhost:8080'
+const url = 'http://localhost:5173'
 
 test('has a prompt', async ({ page }) => {
   await page.goto(url)
@@ -21,7 +21,7 @@ test('should show the conversation', async ({ page }) => {
   await page.getByLabel(/submit/i).click()
   const userMessage = page.getByLabel('user-message')
   await userMessage.waitFor({ state: 'visible' })
-  expect(userMessage).toHaveText(message)
+  await expect(userMessage).toHaveText(message)
   const assistantMessage = page.getByLabel('assistant-message')
   await assistantMessage.waitFor({ state: 'visible' })
 })
@@ -94,11 +94,11 @@ test('should load the conversation from local storage', async ({ page }) => {
 
   const userMessage = page.getByLabel('user-message')
   await userMessage.waitFor({ state: 'visible' })
-  expect(userMessage).toHaveText('Hello World')
+  await expect(userMessage).toHaveText('Hello World')
 
   const assistantMessage = page.getByLabel('assistant-message')
   await assistantMessage.waitFor({ state: 'visible' })
-  expect(assistantMessage).toHaveText('You Are Awesome')
+  await expect(assistantMessage).toHaveText('You Are Awesome')
 })
 
 test('should clear the conversation', async ({ page }) => {
