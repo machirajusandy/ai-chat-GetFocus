@@ -23,12 +23,13 @@ test('should show the conversation', async ({ page , baseURL}) => {
   message.split('').forEach(async (char) => {
     await input.press(char)
   })
+  await input.press(' ')
   await page.getByLabel(/submit/i).click()
   const userMessage = page.getByLabel('user-message')
   await userMessage.waitFor({ state: 'visible' })
-  await expect(userMessage).toHaveText(message)
   const assistantMessage = page.getByLabel('assistant-message')
   await assistantMessage.waitFor({ state: 'visible' })
+  await expect(userMessage).toHaveText(message)
 })
 
 test('should cancel the prompt', async ({ page, baseURL }) => {
@@ -41,6 +42,7 @@ test('should cancel the prompt', async ({ page, baseURL }) => {
   message.split('').forEach(async (char) => {
     await input.press(char)
   })
+  await input.press(' ')
 
   const submitButton = page.getByLabel(/submit/i)
   await submitButton.click()
@@ -69,6 +71,7 @@ test('should save the conversation to local storage ', async ({ page,baseURL }) 
   message.split('').forEach(async (char) => {
     await input.press(char)
   })
+  await input.press(' ')
 
   const submitButton = page.getByLabel(/submit/i)
   await submitButton.click()
@@ -108,10 +111,11 @@ test('should load the conversation from local storage', async ({ page,baseURL })
 
   const userMessage = page.getByLabel('user-message')
   await userMessage.waitFor({ state: 'visible' })
-  await expect(userMessage).toHaveText('Hello World')
-
+  
   const assistantMessage = page.getByLabel('assistant-message')
   await assistantMessage.waitFor({ state: 'visible' })
+
+  await expect(userMessage).toHaveText('Hello World')
   await expect(assistantMessage).toHaveText('You Are Awesome')
 })
 
