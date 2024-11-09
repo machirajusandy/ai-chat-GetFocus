@@ -1,17 +1,22 @@
 import { test, expect } from '@playwright/test'
 
-const url = 'http://localhost:5173'
 
-test('has a prompt', async ({ page }) => {
-  await page.goto(url)
+test('has a prompt', async ({ page, baseURL }) => {
+  if(!baseURL){
+    throw new Error('You must pass a baseUrl')
+  }
+  await page.goto(baseURL)
   const prompt = page.getByLabel(/prompt/i)
   expect(prompt).not.toBeNull()
   const cancelButton = page.getByLabel(/cancel/i)
   expect(cancelButton).not.toBeNull()
 })
 
-test('should show the conversation', async ({ page }) => {
-  await page.goto(url)
+test('should show the conversation', async ({ page , baseURL}) => {
+  if(!baseURL){
+    throw new Error('You must pass a baseUrl')
+  }
+  await page.goto(baseURL)
 
   const input = page.getByLabel('prompt')
   const message = 'Hello World'
@@ -26,8 +31,11 @@ test('should show the conversation', async ({ page }) => {
   await assistantMessage.waitFor({ state: 'visible' })
 })
 
-test('should cancel the prompt', async ({ page }) => {
-  await page.goto(url)
+test('should cancel the prompt', async ({ page, baseURL }) => {
+  if(!baseURL){
+    throw new Error('You must pass a baseUrl')
+  }
+  await page.goto(baseURL)
   const input = page.getByLabel('prompt')
   const message = 'Hello World'
   message.split('').forEach(async (char) => {
@@ -51,8 +59,11 @@ test('should cancel the prompt', async ({ page }) => {
   await submitButton.waitFor({ state: 'visible' })
 })
 
-test('should save the conversation to local storage ', async ({ page }) => {
-  await page.goto(url)
+test('should save the conversation to local storage ', async ({ page,baseURL }) => {
+  if(!baseURL){
+    throw new Error('You must pass a baseUrl')
+  }
+  await page.goto(baseURL)
   const input = page.getByLabel('prompt')
   const message = 'Hello World'
   message.split('').forEach(async (char) => {
@@ -75,8 +86,11 @@ test('should save the conversation to local storage ', async ({ page }) => {
   expect(localStorageValue).toContain(message)
 })
 
-test('should load the conversation from local storage', async ({ page }) => {
-  await page.goto(url)
+test('should load the conversation from local storage', async ({ page,baseURL }) => {
+  if(!baseURL){
+    throw new Error('You must pass a baseUrl')
+  }
+  await page.goto(baseURL)
 
   await page.evaluate(() => {
     localStorage.setItem(
@@ -101,8 +115,11 @@ test('should load the conversation from local storage', async ({ page }) => {
   await expect(assistantMessage).toHaveText('You Are Awesome')
 })
 
-test('should clear the conversation', async ({ page }) => {
-  await page.goto(url)
+test('should clear the conversation', async ({ page,baseURL }) => {
+  if(!baseURL){
+    throw new Error('You must pass a baseUrl')
+  }
+  await page.goto(baseURL)
 
   await page.evaluate(() => {
     localStorage.setItem(
