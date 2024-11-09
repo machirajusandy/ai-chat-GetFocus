@@ -17,8 +17,8 @@ This project is an AI-powered chatbot application consisting of a frontend and a
 1. Clone the repository:
 
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone git@github.com:machirajusandy/ai-chat-GetFocus.git
+    cd ai-chat-GetFocus
     ```
 
 2. Install dependencies for both frontend and backend:
@@ -87,6 +87,7 @@ To run End-to-End Tests for the frontend, you need to start the application firs
     cd backend
     npm start
     ```
+    
 
 2. Start the frontend development server:
 
@@ -94,6 +95,12 @@ To run End-to-End Tests for the frontend, you need to start the application firs
     cd frontend
     npm run dev
     ```
+3. Run the test:
+
+   ```sh
+   cd frontend
+   npm test:e2e:dev
+   ```
 
 #### Using Docker Compose
 
@@ -102,13 +109,12 @@ To run End-to-End Tests for the frontend, you need to start the application firs
     ```sh
     docker-compose up --build
     ```
+2. Run the test
 
-Once the application is running, you can run the end-to-end tests:
-
-```sh
-cd frontend
-npm test:e2e
-```
+    ```sh
+    cd frontend
+    npm test:e2e:prod
+    ```
 
 
 
